@@ -1,5 +1,6 @@
 from fastapi import FastAPI, HTTPException, status
 from pydantic import BaseModel, Field
+from app.Library.library import router as library_router
 
 app = FastAPI()
 
@@ -33,3 +34,6 @@ def add_value(user: Name) -> dict[str, str]:
     userDB.append(user.name)
     
     return {"message": f"{user.name} is added to db"}
+
+
+app.include_router(library_router, prefix='/v1', tags=['Library API'])
