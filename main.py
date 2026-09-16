@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException, status
 from pydantic import BaseModel, Field
 from app.Library.library import router as library_router
+from app.Auth.auth import router as auth_routes
 
 app = FastAPI()
 
@@ -37,3 +38,4 @@ def add_value(user: Name) -> dict[str, str]:
 
 
 app.include_router(library_router, prefix='/v1', tags=['Library API'])
+app.include_router(auth_routes, prefix='/v2', tags=['Auth'])

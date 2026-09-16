@@ -20,9 +20,6 @@ class ShowBook(BaseModel):
     BookName : str
     AuthorName : str
     Descriptions : str
-
-class ShowBookById(BaseModel):
-    book_id : str = Field(...)
     
 Library = {}
 
@@ -65,8 +62,8 @@ def AddBooks(book : AddBook):
     
     return f'Book id {book_id} | Book name {book.bookname} is add to Library'
 
-@router.post("/books/{id}", response_model=ShowBook, status_code=status.HTTP_200_OK)
-def BookShowById(id : ShowBookById):
+@router.get("/books/{id}", response_model=ShowBook, status_code=status.HTTP_200_OK)
+def BookShowById(id : str):
     
     if id in Library:
         return Library[id]
