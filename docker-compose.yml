@@ -1,18 +1,12 @@
 services:
-  app:
+  api:
     build: .
-    container_name: fastapi_app
-    expose:
-      - "8000"
-    environment:
-      PYTHONUNBUFFERED: "1"
-
-  nginx:
-    image: nginx:alpine
-    container_name: nginx_proxy
     ports:
-      - "80:80"
-    depends_on:
-      - app
+      - "8001:8000"
     volumes:
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./app:/app/app
+    develop:
+      watch:
+        - path: ./app
+          action: sync
+          target: /app/app
